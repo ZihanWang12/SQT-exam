@@ -115,10 +115,12 @@ setTimeout(timer_function, 500);
 update_grid();
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == 67) {
-        game.hold(game,render.bind(render,layouts))
+        game = game.hold(game)
+        render(layouts,JSON.parse(JSON.stringify(game.held_tetoromino)))
+        console.log(game.held_tetoromino)
     }
 })
-// xy
+//  xy
 
 // 100 100
 // 50
