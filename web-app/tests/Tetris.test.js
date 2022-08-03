@@ -28,20 +28,39 @@ describe("Hold", function () {
     );
 
     it(
-        `Hold can't be performed twice in a row:
-        Given a Tetris Game where a Hold is performed;
-        When one further Hold is performed;
-        Then the game state before and after the second hold, is the same.`,
+        `Hold can't be performed twice in a row.`,
         function () {
-            const initial_game = Tetris.hold(Tetris.new_game());
-            // Implement the rest of this function.
+            const initial_game = Tetris.new_game();
+            const initial_gameOne = Tetris.hold(initial_game);
+            const initial_gameOn = Tetris.hold(initial_game);
+            const initial_piece = JSON.stringify(initial_gameOn.held_tetoromino);
+            const initial_gameTow = Tetris.hold(initial_piece);
+            const final_piece = JSON.stringify(initial_gameTow.held_tetoromino)
+            if (!R.equals(initial_piece, final_piece)) {
+                throw new Error(
+                    `The inital and final tetrominos do not match
+                    Initial: ${JSON.stringify(initial_piece)}
+                    Final:   ${JSON.stringify(final_piece)}`
+                );
+            }
         }
     );
 
     it(
-        `### Change this to your test description ###`,
+        `If there is no held piece and a hold performed, the next tetromino is deployed.`,
         function () {
-            // Implement this function.
+            const initial_game = Tetris.new_game();
+            const initial_piece = JSON.stringify(initial_game.current_tetromino)
+            const initial_gameOne = Tetris.hold(initial_game);
+            const held_tetoromino = JSON.stringify(initial_gameOne.held_tetoromino)
+            console.log(initial_piece,held_tetoromino)
+            if (!R.equals(initial_piece, held_tetoromino)) {
+                throw new Error(
+                    `The inital and final tetrominos do not match
+                    Initial: ${JSON.stringify(initial_piece)}
+                    Final:   ${JSON.stringify(held_tetoromino)}`
+                );
+            }
         }
     );
 });
