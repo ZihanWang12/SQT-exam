@@ -221,37 +221,35 @@ Tetris.new_game = function (render) {
  *  2. Swap the drop storage area with the current piece if the current drop cache area has a value
  *  3. If the falling piece is the piece that was just taken out, there is no switch.
  * @function
+ * @memberof Tetris
  * @param {Object} game 
- * @param {Functon} render 
- * @param {Boolran} flg 
+ * @returns {Tetris.Game} The new game.
  * @returns 
  */
-// hold function
-function hold(game, render, flg) {
-    console.log(can_hold, flg)
-    if (flg) {
-        can_hold = false;
-        return held_tetoromino
-    }
-    if (!held_tetoromino) {
-        held_tetoromino = game.current_tetromino;
-        const [next_tetromino, bag] = game.bag();
-        game.current_tetromino = game.next_tetromino
-        game.next_tetromino = next_tetromino
-        game.position = [5, 2];
-        render && render(held_tetoromino)
-        return held_tetoromino
-    }
+
+
+function hold(game) {
     if (!can_hold) {
-        let temp = game.current_tetromino
-        game.current_tetromino = held_tetoromino
-        held_tetoromino = temp;
-        game.position = [5, 2];
-        can_hold = true;
-        console.log(temp.block_type, 'exchange success', game.current_tetromino.block_type)
+        if (held_tetoromino) {
+            let temp = game.current_tetromino
+            game.current_tetromino = held_tetoromino
+            held_tetoromino = temp;
+            game.position = [5, 2];
+            can_hold = true;
+        } else {
+            held_tetoromino = game.current_tetromino;
+            const [next_tetromino, bag] = game.bag();
+            game.current_tetromino = game.next_tetromino
+            game.next_tetromino = next_tetromino
+            game.position = [5, 2];
+            Glob_render && Glob_render(game.next_tetromino);
+        }
     }
-    render && render(held_tetoromino)
-    return held_tetoromino
+    return {
+        ...game,
+        held_tetoromino,
+        can_hold
+    }
 }
 /**
  * For a given tetromino and position,
@@ -554,7 +552,7 @@ Tetris.is_game_over = function (game) {
     return game.game_over;
 };
 
-// 检测设置数据
+
 
 
 
