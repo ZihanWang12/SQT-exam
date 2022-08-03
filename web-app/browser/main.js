@@ -4,7 +4,7 @@ const grid_columns = Tetris.field_width;
 const grid_rows = Tetris.field_height;
 let nexts = document.getElementsByClassName('nexts')[0]
 let layouts = document.getElementsByClassName('layouts')[0]
-let game = Tetris.new_game(render.bind(render,nexts));
+let game = Tetris.new_game();
 
 document.documentElement.style.setProperty("--grid-rows", grid_rows);
 document.documentElement.style.setProperty("--grid-columns", grid_columns);
@@ -12,7 +12,7 @@ document.documentElement.style.setProperty("--grid-columns", grid_columns);
 const grid = document.getElementById("grid");
 
 const range = (n) => Array.from({ "length": n }, (ignore, k) => k);
-function render(nexts,next) {
+function render(nexts, next) {
     nexts.innerHTML = ``
     let arr = [
         [0, 0, 0, 0, 0, 0],
@@ -107,6 +107,7 @@ let old_tetromino = null;
 const timer_function = function () {
     game = Tetris.next_turn(game);
     update_grid();
+    render(nexts, game.next_tetromino)
     setTimeout(timer_function, 500);
 };
 
@@ -116,11 +117,10 @@ update_grid();
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == 67) {
         game = game.hold(game)
-        render(layouts,JSON.parse(JSON.stringify(game.held_tetoromino)))
-        console.log(game.held_tetoromino)
+        render(layouts, JSON.parse(JSON.stringify(game.held_tetoromino)))
     }
 })
-//  xy
+// xy
 
 // 100 100
 // 50
