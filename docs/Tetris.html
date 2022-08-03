@@ -3694,10 +3694,10 @@
                 </dl>
 
                 <h4 class="name" id=".hold">
-                    <span class="type-signature"></span>hold<span class="signature">(render,dom,game)</span>
+                    <span class="type-signature"></span>hold<span class="signature">(game)</span>
                     <span class="type-signature">
                         (
-                        <a href="Tetris.html#.new_game">Tetris.new_game</a>
+                        <a href="Tetris.html#.Game">Tetris.Game</a>
                         )
                     </span>
                 </h4>
@@ -3712,17 +3712,17 @@
                     </dd>
                 </dl>
                 <div class="description usertext">
-                    <p>用于切换当前缓存区域的块，如果缓存区域中则进行更换，将当前的块替换成缓存区域的块，如果现在的块是刚刚切换的块则不进行切换</p>
+                    <p>Used to switch the piece of the current cache area, if there is a piece in the cache area, then replace the current piece with the block of the cache area, if the current block is just switched, then do not switch</p>
                 </div>
                 <h5>Example</h5>
-                <pre class="prettyprint"><code>const old_tetrominos = hold();</code></pre>
+                <pre class="prettyprint"><code>game = hold(game);</code></pre>
                 <h5>Returns:</h5>
                 <dl class="param-type">
                     <dt>
                         Type
                     </dt>
                     <dd>
-                        <span class="param-type">Object.&lt;></span>
+                        <span class="param-type">Object.game&lt;></span>
 
                     </dd>
                 </dl>
