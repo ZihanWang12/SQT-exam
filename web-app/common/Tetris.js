@@ -201,7 +201,6 @@ Tetris.new_game = function (render) {
     Glob_render = render;
     const [current_tetromino, next_bag] = new_bag();
     const [next_tetromino, bag] = next_bag();
-    Glob_render && Glob_render(next_tetromino)
     return {
         "bag": bag,
         "current_tetromino": current_tetromino,
@@ -224,33 +223,32 @@ Tetris.new_game = function (render) {
  * @memberof Tetris
  * @param {Object} game 
  * @returns {Tetris.Game} The new game.
- * @returns 
  */
 
 
+let flgs = {}
 function hold(game) {
-    if (!can_hold) {
+    if (!game.can_hold) {
         if (held_tetoromino) {
             let temp = game.current_tetromino
             game.current_tetromino = held_tetoromino
             held_tetoromino = temp;
             game.position = [5, 2];
-            can_hold = true;
+            game.can_hold = true;
         } else {
             held_tetoromino = game.current_tetromino;
             const [next_tetromino, bag] = game.bag();
             game.current_tetromino = game.next_tetromino
             game.next_tetromino = next_tetromino
             game.position = [5, 2];
-            Glob_render && Glob_render(game.next_tetromino);
         }
     }
     return {
         ...game,
         held_tetoromino,
-        can_hold
     }
 }
+Tetris.hold = hold;
 /**
  * For a given tetromino and position,
  * return the coordinates of where its blocks would position in the field.
@@ -529,7 +527,7 @@ Tetris.next_turn = function (game) {
 
     const [next_tetromino, bag] = game.bag();
     Glob_render && Glob_render(next_tetromino)
-    can_hold = false;
+    game.can_hold = false;
     return {
         "bag": bag,
         "current_tetromino": game.next_tetromino,
@@ -551,10 +549,6 @@ Tetris.next_turn = function (game) {
 Tetris.is_game_over = function (game) {
     return game.game_over;
 };
-
-
-
-
 
 
 
